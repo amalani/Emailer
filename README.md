@@ -1,0 +1,2 @@
+# Emailer
+Python simple emailer
