@@ -68,12 +68,15 @@ class EmailSender(object):
         return result
 
 
-m = Message(credentials.name, 'subject', 'body text\n lets see if this works')
-m.add_to('to@email.com')
 
 
-credentials = Credentials('name', 'email@gmail.com')
-email_sender = EmailSender(credentials)
-email_sender.connect()
-email_sender.sendmail(m)
-email_sender.disconnect()
+credentials = Credentials()
+
+# m = Message(credentials.name, 'subject', 'body text\n lets see if this works')
+# m.add_to('to@email.com')
+
+#
+# email_sender = EmailSender(credentials)
+# email_sender.connect()
+# email_sender.sendmail(m)
+# email_sender.disconnect()
