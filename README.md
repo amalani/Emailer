@@ -1,2 +1,2 @@
 # Emailer
-Python simple emailer
+Simple python emailer
