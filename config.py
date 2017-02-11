@@ -32,4 +32,5 @@ class Credentials(object):
 
     def try_load_config(self):
         if self.config_exists():
+            print 'Found config file'
             pass
