@@ -1,6 +1,6 @@
 import smtplib
 from email.mime.text import MIMEText
-from config import Credentials
+from credentials import Credentials
 
 
 class Message(object):
