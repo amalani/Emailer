@@ -3,6 +3,8 @@ import os
 
 
 class Credentials(object):
+    CONFIG = 'config.cfg'
+
     def __init__(self):
         self.name = ''
         self.user = ''
@@ -26,7 +28,7 @@ class Credentials(object):
 
     @staticmethod
     def config_exists():
-        return os.access('config.cfg', os.R_OK)
+        return os.access(Credentials.CONFIG, os.R_OK)
 
     def try_load_config(self):
         if self.config_exists():
