@@ -41,9 +41,9 @@ class Message(object):
 
 class EmailSender(object):
 
-    def __init__(self, credentials):
+    def __init__(self, user_creds):
         self.server = None
-        self.credentials = credentials
+        self.credentials = user_creds
         self.email_from = self.credentials.email
 
     def connect(self):
@@ -66,9 +66,6 @@ class EmailSender(object):
             message.get_message())
         print result
         return result
-
-
-
 
 credentials = Credentials()
 

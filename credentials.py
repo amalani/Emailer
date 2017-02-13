@@ -3,12 +3,16 @@ import os
 
 
 class Credentials(object):
-    CONFIG = 'config.cfg'
+    DEFAULT_CONFIG = 'config.cfg'
 
-    def __init__(self):
+    def __init__(self, config=''):
+        self.config = self.DEFAULT_CONFIG
         self.name = ''
         self.user = ''
         self.password = ''
+
+        if config != '':
+            self.config = config
 
         self.try_load_config()
         self.load_missing_params()
@@ -26,9 +30,8 @@ class Credentials(object):
         if self.password == '':
             self.password = getpass.getpass(prompt='Enter GMail password: ')
 
-    @staticmethod
-    def config_exists():
-        return os.access(Credentials.CONFIG, os.R_OK)
+    def config_exists(self):
+        return os.access(self.config, os.R_OK)
 
     def try_load_config(self):
         if self.config_exists():
