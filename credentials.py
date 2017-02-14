@@ -33,12 +33,14 @@ class Credentials(object):
 
     def get_setting_from_user(self):
         for key in self.SETTINGS_PLAIN_TEXT:
-            value = raw_input('Enter {}'.format(key))
-            self.settings[key] = value
+            if settings[key] == '':
+                value = raw_input('Enter {}'.format(key))
+                self.settings[key] = value
 
         for key in self.SETTINGS_ENCRYPTED:
-            value = getpass.getpass('Enter {}'.format(key))
-            self.settings[key] = value
+            if settings[key] == '':
+                value = getpass.getpass('Enter {}'.format(key))
+                self.settings[key] = value
 
     def config_exists(self):
         return os.access(self.config_file, os.R_OK)
@@ -48,3 +50,5 @@ class Credentials(object):
             print "Found config file."
         else:
             print "Config file missing."
+
+
