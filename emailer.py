@@ -42,16 +42,18 @@ class Message(object):
 class EmailSender(object):
 
     def __init__(self, user_creds):
+        # type: (Credentials) -> None
         self.server = None
         self.credentials = user_creds
-        self.email_from = self.credentials.email
+        self.email_from = self.credentials.get_property('email')
 
     def connect(self):
         if self.server is None:
             try:
                 self.server = smtplib.SMTP_SSL('smtp.gmail.com')
                 self.server.ehlo()
-                self.server.login(self.credentials.user, self.credentials.password)
+                self.server.login(self.credentials.get_property('email'),
+                                  self.credentials.get_property('password'))
             except Exception as e:
                 print e
 
@@ -59,7 +61,7 @@ class EmailSender(object):
         if self.server:
             self.server.close()
 
-    def sendmail(self, message):
+    def send_mail(self, message):
         result = self.server.sendmail(
             message.mail_from,
             message.get_recipients(),
@@ -75,12 +77,11 @@ credentials = Credentials()
 # credentials.save_config()
 
 # print
-credentials.show()
-# m = Message(credentials.name, 'subject', 'body text\n lets see if this works')
-# m.add_to('to@email.com')
+# credentials.show()
+m = Message(credentials.get_property('name'), 'subject', 'body text\n lets see if this works')
+m.add_to('malani@gmail.com')
 
-#
-# email_sender = EmailSender(credentials)
-# email_sender.connect()
-# email_sender.sendmail(m)
-# email_sender.disconnect()
+email_sender = EmailSender(credentials)
+email_sender.connect()
+email_sender.send_mail(m)
+email_sender.disconnect()
