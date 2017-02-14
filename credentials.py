@@ -1,39 +1,50 @@
 import getpass
 import os
 
+import ConfigParser
+
 
 class Credentials(object):
     DEFAULT_CONFIG = 'config.cfg'
 
-    def __init__(self, config=''):
-        self.config = self.DEFAULT_CONFIG
-        self.name = ''
-        self.user = ''
-        self.password = ''
+    SETTINGS_PLAIN_TEXT = ['name', 'email']
+    SETTINGS_ENCRYPTED = ['password']
 
-        if config != '':
-            self.config = config
+    def __init__(self, config_file=''):
+        self.config_file = self.DEFAULT_CONFIG
+        self.settings = {}
+        self._init_settings()
+
+        if config_file != '':
+            self.config_file = config_file
 
         self.try_load_config()
-        self.load_missing_params()
 
-    def set_params(self, name, user_email, password):
-        self.name = name
-        self.user = user_email
-        self.password = password
+    def _init_settings(self):
+        for key in self.SETTINGS_PLAIN_TEXT:
+            self.settings[key] = ''
+        for key in self.SETTINGS_ENCRYPTED:
+            self.settings[key] = ''
 
-    def load_missing_params(self):
-        if self.name == '':
-            self.name = 'temporary'
-        if self.user == '':
-            self.user = 'temporary_email_account'
-        if self.password == '':
-            self.password = getpass.getpass(prompt='Enter GMail password: ')
+    def set_params(self, name, email, password):
+        self.settings['name'] = name
+        self.settings['email'] = email
+        self.settings['password'] = password
+
+    def get_setting_from_user(self):
+        for key in self.SETTINGS_PLAIN_TEXT:
+            value = raw_input('Enter {}'.format(key))
+            self.settings[key] = value
+
+        for key in self.SETTINGS_ENCRYPTED:
+            value = getpass.getpass('Enter {}'.format(key))
+            self.settings[key] = value
 
     def config_exists(self):
-        return os.access(self.config, os.R_OK)
+        return os.access(self.config_file, os.R_OK)
 
     def try_load_config(self):
         if self.config_exists():
-            print 'Found config file'
-            pass
+            print "Found config file."
+        else:
+            print "Config file missing."
