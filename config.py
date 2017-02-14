@@ -1,3 +1,4 @@
+import os
 import ConfigParser
 
 
@@ -12,3 +13,10 @@ class ConfigHelper(object):
     def save(self):
         with open(self.file, 'wb') as config_file:
             self.config.write(config_file)
+
+    def read(self):
+        if self.config_exists():
+            print "reading config"
+            self.config.read(self.file)
+        else:
+            print "config not found"

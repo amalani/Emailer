@@ -1,6 +1,7 @@
 import getpass
 import os
 import json
+import ConfigParser
 
 from config import ConfigHelper
 
@@ -28,11 +29,6 @@ class Credentials(object):
         for key in self.SETTINGS_ENCRYPTED:
             self.settings[key] = ''
 
-    def set_params(self, name, email, password):
-        self.settings['name'] = name
-        self.settings['email'] = email
-        self.settings['password'] = password
-
     def get_setting_from_user(self):
         for key in self.SETTINGS_PLAIN_TEXT:
             if self.settings[key] == '':
@@ -50,8 +46,29 @@ class Credentials(object):
     def try_load_config(self):
         if self.config_exists():
             print "Found config file."
+            self._load_config()
         else:
             print "Config file missing."
+
+    def _load_config(self):
+        config_helper = ConfigHelper(self.config_file)
+        config_helper.read()
+        config = config_helper.config
+        for key in self.SETTINGS_PLAIN_TEXT:
+            try:
+                value = config.get(self.CONFIG_SECTION_NAME, key)
+            except ConfigParser.NoOptionError:
+                print "'{}' not found in config file.".format(key)
+                value = ''
+            self.settings[key] = value
+
+        for key in self.SETTINGS_ENCRYPTED:
+            try:
+                value = config.get(self.CONFIG_SECTION_NAME, key)
+            except ConfigParser.NoOptionError:
+                print "'{}' not found in config file.".format(key)
+                value = ''
+            self.settings[key] = value
 
     def save_config(self):
         config_helper = ConfigHelper(self.config_file)
