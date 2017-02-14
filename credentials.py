@@ -8,6 +8,7 @@ from Crypto.Cipher import AES
 
 from config import ConfigHelper
 
+
 class SimpleEncryption(object):
     # based on http://www.codekoala.com/posts/aes-encryption-python-using-pycrypto/
     # Note: this code is good for simple projects, but not for actual production use.
