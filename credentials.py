@@ -1,5 +1,6 @@
 import getpass
 import os
+import json
 
 from config import ConfigHelper
 
@@ -61,3 +62,7 @@ class Credentials(object):
         for key in self.SETTINGS_ENCRYPTED:
             config.set(self.CONFIG_SECTION_NAME, key, self.settings[key])
         config_helper.save()
+
+    def show(self):
+        print "Config: "
+        print json.dumps(self.settings, indent=2, sort_keys=True)
