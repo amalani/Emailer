@@ -6,21 +6,26 @@ import ConfigParser
 from config import ConfigHelper
 
 class Credentials(object):
+    '''
+    Basic credential/config storage. Allows encrypting/decrypting sensitive data using a key.
+    '''
     DEFAULT_CONFIG = 'config.cfg'
 
-    SETTINGS_PLAIN_TEXT = ['name', 'email', 'salt']
+    # key is the secret key used to encrypt/decrypt the password. All other keys are optional.
+    SECRET_KEY_NAME = 'key'
+    SETTINGS_PLAIN_TEXT = [SECRET_KEY_NAME, 'name', 'email']
     SETTINGS_ENCRYPTED = ['password']
 
     CONFIG_SECTION_NAME = 'configuration'
 
     def __init__(self, config_file=''):
+        assert self.SECRET_KEY_NAME in self.SETTINGS_PLAIN_TEXT, "secret key required"
         self.config_file = self.DEFAULT_CONFIG
         self.settings = {}
         self._init_settings()
 
         if config_file != '':
             self.config_file = config_file
-
         self.try_load_config()
 
     def _init_settings(self):
