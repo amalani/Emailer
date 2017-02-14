@@ -9,7 +9,7 @@ class Credentials(object):
     SETTINGS_PLAIN_TEXT = ['name', 'email', 'salt']
     SETTINGS_ENCRYPTED = ['password']
 
-    CONFIG_SECTION_NAME = 'default'
+    CONFIG_SECTION_NAME = 'configuration'
 
     def __init__(self, config_file=''):
         self.config_file = self.DEFAULT_CONFIG
