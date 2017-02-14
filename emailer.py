@@ -78,10 +78,10 @@ credentials = Credentials()
 
 # print
 # credentials.show()
-m = Message(credentials.get_property('name'), 'subject', 'body text\n lets see if this works')
-m.add_to('malani@gmail.com')
+# m = Message(credentials.get_property('name'), 'test subject', 'body text\n lets see if this works')
+# m.add_to('testuser@mailinator.com')
 
-email_sender = EmailSender(credentials)
-email_sender.connect()
-email_sender.send_mail(m)
-email_sender.disconnect()
+# email_sender = EmailSender(credentials)
+# email_sender.connect()
+# email_sender.send_mail(m)
+# email_sender.disconnect()
