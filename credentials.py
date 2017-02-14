@@ -7,6 +7,7 @@ import ConfigParser
 
 from config import ConfigHelper
 
+
 class Credentials(object):
     '''
     Basic credential/config storage. Allows encrypting/decrypting sensitive data using a key.
