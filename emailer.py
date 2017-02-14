@@ -68,6 +68,8 @@ class EmailSender(object):
         return result
 
 credentials = Credentials()
+credentials.get_setting_from_user()
+credentials.save_config()
 
 # m = Message(credentials.name, 'subject', 'body text\n lets see if this works')
 # m.add_to('to@email.com')
