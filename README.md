@@ -5,4 +5,6 @@ Simple python emailer
 * Provides Message object for easy email sending
 
 Dependencies:
-* pip install bcrypt
+* pip install PyCrypto
+    * Encryption steps taken from http://www.codekoala.com/posts/aes-encryption-python-using-pycrypto/
+
