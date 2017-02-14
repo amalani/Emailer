@@ -1,14 +1,15 @@
 import getpass
 import os
 
-import ConfigParser
-
+from config import ConfigHelper
 
 class Credentials(object):
     DEFAULT_CONFIG = 'config.cfg'
 
-    SETTINGS_PLAIN_TEXT = ['name', 'email']
+    SETTINGS_PLAIN_TEXT = ['name', 'email', 'salt']
     SETTINGS_ENCRYPTED = ['password']
+
+    CONFIG_SECTION_NAME = 'default'
 
     def __init__(self, config_file=''):
         self.config_file = self.DEFAULT_CONFIG
@@ -51,4 +52,12 @@ class Credentials(object):
         else:
             print "Config file missing."
 
-
+    def save_config(self):
+        config_helper = ConfigHelper(self.config_file)
+        config = config_helper.config
+        config.add_section(self.CONFIG_SECTION_NAME)
+        for key in self.SETTINGS_PLAIN_TEXT:
+            config.set(self.CONFIG_SECTION_NAME, key, self.settings[key])
+        for key in self.SETTINGS_ENCRYPTED:
+            config.set(self.CONFIG_SECTION_NAME, key, self.settings[key])
+        config_helper.save()
