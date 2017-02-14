@@ -1,6 +1,8 @@
+import bcrypt
 import getpass
-import os
 import json
+import os
+
 import ConfigParser
 
 from config import ConfigHelper
