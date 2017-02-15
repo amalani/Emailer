@@ -10,7 +10,8 @@ from config import ConfigHelper
 
 class SimpleEncryption(object):
     # based on http://www.codekoala.com/posts/aes-encryption-python-using-pycrypto/
-    # Note: this code is good for simple projects, but not for actual production use.
+    # Note: this code is alright for simple projects that don't need to be deployed to production
+    # but not use it for actual production use.
     BLOCK_SIZE = 16
     PADDING = '{'
 
