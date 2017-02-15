@@ -1,11 +1,10 @@
+import ConfigParser
 import getpass
 import json
 import os
 from base64 import b64encode, b64decode
 
-import ConfigParser
 from Crypto.Cipher import AES
-
 from config import ConfigHelper
 
 
