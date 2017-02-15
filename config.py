@@ -16,7 +16,6 @@ class ConfigHelper(object):
 
     def read(self):
         if self.config_exists():
-            print "reading config"
             self.config.read(self.file)
         else:
             print "config not found"

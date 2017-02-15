@@ -96,7 +96,6 @@ class Credentials(object):
 
     def try_load_config(self):
         if self.config_exists():
-            print "Found config file."
             self._load_config()
         else:
             print "Config file missing."
