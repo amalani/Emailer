@@ -7,4 +7,5 @@ Simple python emailer
 Dependencies:
 * pip install PyCrypto
     * Encryption steps taken from http://www.codekoala.com/posts/aes-encryption-python-using-pycrypto/
-
+* pip install pyzmail
+    * email parsing

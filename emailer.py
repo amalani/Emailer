@@ -1,7 +1,9 @@
 import smtplib
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from credentials import Credentials
 
+# http://stackoverflow.com/questions/882712/sending-html-email-using-python
 
 class Message(object):
     def __init__(self, mail_from='', subject='', body=''):
@@ -11,6 +13,8 @@ class Message(object):
         self.bcc = []
         self.subject = subject
         self.body = body
+        self.is_html_email = False
+        self.body_html = ''
 
     def add_to(self, email):
         self.to.append(email)
@@ -30,13 +34,28 @@ class Message(object):
         assert self.body != ''
         assert self.mail_from != ''
 
-        message = MIMEText(self.body)
-        message['Subject'] = self.subject
+        if not self.is_html_email:
+            message = MIMEText(self.body)
+        else:
+            # HTML Email
+            message = MIMEMultipart('alternative')
+            part1 = MIMEText(self.body, 'plain')
+            part2 = MIMEText(self.body_html, 'html')
+            message.attach(part1)
+            message.attach(part2)
+
         message['From'] = self.mail_from
+        message['Subject'] = self.subject
         message['To'] = ', '.join(self.to)
         if len(self.cc) > 0:
             message['Cc'] = ', '.join(self.cc)
+
         return message.as_string()
+
+
+    def set_html_content(self, content):
+        self.body_html = content
+        self.is_html_email = True
 
 
 class EmailSender(object):

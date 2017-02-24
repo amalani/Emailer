@@ -1,2 +1,3 @@
 *.pyc
 config.cfg
+config_catchall_linkdump.cfg
