@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from credentials import Credentials
 
+# html email multipart from
 # http://stackoverflow.com/questions/882712/sending-html-email-using-python
 
 class Message(object):
