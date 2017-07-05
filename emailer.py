@@ -1,3 +1,4 @@
+import quopri
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -42,13 +43,16 @@ class Message(object):
             message = MIMEMultipart('alternative')
 
             # Allow utf8 + content transfer encoding for transliteration
-            part1 = MIMEText(None, 'plain')
-            part1.replace_header('content-transfer-encoding', 'quoted-printable')
-            part1.set_payload(self.body, 'UTF-8')
+            # part1 = MIMEText(None, 'plain')
+            # part1.replace_header('content-transfer-encoding', 'quoted-printable')
+            # part1.set_payload(self.body, 'UTF-8')
 
-            part2 = MIMEText(None, 'html', 'UTF-8')
-            part2.replace_header('content-transfer-encoding', 'quoted-printable')
-            part2.set_payload(self.body_html, 'UTF-8')
+            # part2 = MIMEText(None, 'html', 'UTF-8')
+            # part2.replace_header('content-transfer-encoding', 'quoted-printable')
+            # part2.set_payload(self.body_html, 'UTF-8')
+            part1 = MIMEText(self.body, 'plain')
+            part2 = MIMEText(self.body_html, 'html')
+
             message.attach(part1)
             message.attach(part2)
 
