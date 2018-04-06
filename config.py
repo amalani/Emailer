@@ -19,3 +19,16 @@ class ConfigHelper(object):
             self.config.read(self.file)
         else:
             print "config not found"
+
+
+# config = ConfigParser.ConfigParser({}, collections.OrderedDict)
+# config.read('testfile.ini')
+# # Order the content of each section alphabetically
+# for section in config._sections:
+#     config._sections[section] = collections.OrderedDict(sorted(config._sections[section].items(), key=lambda t: t[0]))
+
+# # Order all sections alphabetically
+# config._sections = collections.OrderedDict(sorted(config._sections.items(), key=lambda t: t[0] ))
+
+# # Write ini file to standard output
+# config.write(sys.stdout)
