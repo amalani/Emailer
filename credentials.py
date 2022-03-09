@@ -1,11 +1,11 @@
-import ConfigParser
+from configparser import ConfigParser
 import getpass
 import json
 import os
 from base64 import b64encode, b64decode
 
 from Crypto.Cipher import AES
-from config import ConfigHelper
+from .config import ConfigHelper
 
 
 class SimpleEncryption(object):
@@ -99,7 +99,7 @@ class Credentials(object):
         if self.config_exists():
             self._load_config()
         else:
-            print "Config file missing."
+            print("Config file missing.")
 
     def _load_config(self):
         config_helper = ConfigHelper(self.config_file)
@@ -109,7 +109,7 @@ class Credentials(object):
             try:
                 value = config.get(self.CONFIG_SECTION_NAME, key)
             except ConfigParser.NoOptionError:
-                print "'{}' not found in config file.".format(key)
+                print("'{}' not found in config file.".format(key))
                 value = ''
             self._settings[key] = value
 
@@ -119,7 +119,7 @@ class Credentials(object):
                 value = config.get(self.CONFIG_SECTION_NAME, key)
                 value = SimpleEncryption.decode(cipher, value)
             except ConfigParser.NoOptionError:
-                print "'{}' not found in config file.".format(key)
+                print("'{}' not found in config file.".format(key))
                 value = ''
             self._settings[key] = value
 
@@ -139,8 +139,8 @@ class Credentials(object):
         config_helper.save()
 
     def show(self):
-        print "Showing config: <encrypted values hidden>"
+        print("Showing config: <encrypted values hidden>")
         settings = self._settings.copy()
         for key in self.SETTINGS_ENCRYPTED:
             settings[key] = '<encrypted value, hidden>'
-        print json.dumps(settings, indent=2, sort_keys=True)
+        print(json.dumps(settings, indent=4, sort_keys=True))

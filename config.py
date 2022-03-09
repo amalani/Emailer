@@ -1,5 +1,5 @@
 import os
-import ConfigParser
+from configparser import ConfigParser
 
 
 class ConfigHelper(object):
@@ -18,7 +18,7 @@ class ConfigHelper(object):
         if self.config_exists():
             self.config.read(self.file)
         else:
-            print "config not found"
+            print("config not found")
 
 
 # config = ConfigParser.ConfigParser({}, collections.OrderedDict)

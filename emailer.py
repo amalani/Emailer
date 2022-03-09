@@ -2,7 +2,7 @@ import quopri
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from credentials import Credentials
+from .credentials import Credentials
 
 # html email multipart from
 # http://stackoverflow.com/questions/882712/sending-html-email-using-python
@@ -83,11 +83,11 @@ class EmailSender(object):
             try:
                 self.server = smtplib.SMTP_SSL('smtp.gmail.com')
                 self.server.ehlo()
-                print 'connecting to server'
+                print("connecting to server")
                 self.server.login(self.credentials.get_property('email'),
                                   self.credentials.get_property('password'))
             except Exception as e:
-                print e
+                print(e)
 
     def disconnect(self):
         if self.server:
@@ -98,7 +98,7 @@ class EmailSender(object):
             message.mail_from,
             message.get_recipients(),
             message.get_message())
-        print result
+        print(result)
         return result
 
 
