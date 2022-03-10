@@ -1,4 +1,5 @@
 from configparser import ConfigParser
+import configparser
 import getpass
 import json
 import os
@@ -27,7 +28,7 @@ class SimpleEncryption(object):
 
     @staticmethod
     def decode(c, e):
-        return c.decrypt(b64decode(e)).rstrip(SimpleEncryption.PADDING)
+        return c.decrypt(b64decode(e)).decode().rstrip(SimpleEncryption.PADDING)
 
     @staticmethod
     def get_cipher(key):
@@ -108,7 +109,7 @@ class Credentials(object):
         for key in self.SETTINGS_PLAIN_TEXT:
             try:
                 value = config.get(self.CONFIG_SECTION_NAME, key)
-            except ConfigParser.NoOptionError:
+            except configparser.NoOptionError:
                 print("'{}' not found in config file.".format(key))
                 value = ''
             self._settings[key] = value
@@ -118,7 +119,7 @@ class Credentials(object):
             try:
                 value = config.get(self.CONFIG_SECTION_NAME, key)
                 value = SimpleEncryption.decode(cipher, value)
-            except ConfigParser.NoOptionError:
+            except configparser.NoOptionError:
                 print("'{}' not found in config file.".format(key))
                 value = ''
             self._settings[key] = value

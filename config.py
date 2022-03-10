@@ -4,7 +4,7 @@ from configparser import ConfigParser
 
 class ConfigHelper(object):
     def __init__(self, filename):
-        self.config = ConfigParser.RawConfigParser()
+        self.config = ConfigParser()
         self.file = filename
 
     def config_exists(self):
